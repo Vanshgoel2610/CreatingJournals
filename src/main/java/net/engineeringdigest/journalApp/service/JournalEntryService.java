@@ -5,6 +5,8 @@ import net.engineeringdigest.journalApp.entity.UserEntry;
 import net.engineeringdigest.journalApp.repository.JournalEntryRepository;
 import net.engineeringdigest.journalApp.repository.UserRepository;
 import org.bson.types.ObjectId;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,6 +24,8 @@ public class JournalEntryService {
     @Autowired
     private UserRepository userRepository;
 
+    private static final Logger logger = LoggerFactory.getLogger(JournalEntryService.class);
+
     @Transactional
     public void saveEntry(JournalEntry journalEntity, String userName) {
         try {
@@ -31,6 +35,11 @@ public class JournalEntryService {
             user.getJournalEntries().add(save);
             userService.saveEntry(user);
         } catch(Exception e) {
+            logger.trace("Tracing");
+            logger.debug("Debugging");
+            logger.info("Random MSG");
+            logger.warn("Warning");
+            logger.error("Displaying Error");
             System.out.println(e);
             throw new RuntimeException("An error occured");
         }

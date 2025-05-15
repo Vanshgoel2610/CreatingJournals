@@ -5,6 +5,8 @@ import net.engineeringdigest.journalApp.entity.UserEntry;
 import net.engineeringdigest.journalApp.repository.JournalEntryRepository;
 import net.engineeringdigest.journalApp.repository.UserRepository;
 import org.bson.types.ObjectId;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -24,6 +26,9 @@ public class UserService {
     public void saveEntry(UserEntry user) {
         userRepository.save(user);
     }
+
+    private static final Logger logger = LoggerFactory.getLogger(UserService.class);
+
     public boolean saveNewEntry(UserEntry user) {
         try {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -31,6 +36,11 @@ public class UserService {
             userRepository.save(user);
             return true;
         } catch(Exception e) {
+            logger.trace("Tracing");
+            logger.debug("Debugging");
+            logger.info("Random MSG");
+            logger.warn("Warning");
+            logger.error("Displaying Error");
             System.out.println(e);
             return false;
         }
