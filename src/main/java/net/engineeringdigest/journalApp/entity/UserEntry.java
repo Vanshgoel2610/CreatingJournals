@@ -20,9 +20,27 @@ public class UserEntry {
     private String userName;
     @NonNull
     private String password;
+    private String email;
+    private boolean sentimentAnalysis;
     @DBRef
     private List<JournalEntry> journalEntries = new ArrayList<>();
     private List<String> roles;
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public boolean isSentimentAnalysis() {
+        return sentimentAnalysis;
+    }
+
+    public void setSentimentAnalysis(boolean sentimentAnalysis) {
+        this.sentimentAnalysis = sentimentAnalysis;
+    }
 
     public ObjectId getId() {
         return id;

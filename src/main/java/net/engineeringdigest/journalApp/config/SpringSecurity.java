@@ -2,6 +2,7 @@ package net.engineeringdigest.journalApp.config;
 
 //import io.jsonwebtoken.Jwt;
 //import net.engineeringdigest.journalApp.filter.JwtFilter;
+import net.engineeringdigest.journalApp.filter.JWTFilter;
 import net.engineeringdigest.journalApp.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -26,6 +27,8 @@ public class SpringSecurity extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
+    @Autowired
+    private JWTFilter jwtFilter;
 
 //    @Autowired
 //    private JwtFilter jwtFilter;
@@ -36,11 +39,11 @@ public class SpringSecurity extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/journal/**", "/user/**").authenticated()
                 .antMatchers("/admin/**").hasRole("ADMIN")
-                .anyRequest().permitAll()
-                .and()
-                .httpBasic();
+                .anyRequest().permitAll();
+//                .and()
+//                .httpBasic();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().csrf().disable();
-//        http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
     @Override
@@ -51,5 +54,11 @@ public class SpringSecurity extends WebSecurityConfigurerAdapter {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
     }
 }

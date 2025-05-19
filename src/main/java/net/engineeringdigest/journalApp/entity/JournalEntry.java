@@ -1,5 +1,6 @@
 package net.engineeringdigest.journalApp.entity;
 
+import net.engineeringdigest.journalApp.enums.Sentiments;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -13,6 +14,7 @@ public class JournalEntry {
     private String title;
     private String content;
     private LocalDateTime date;
+    private Sentiments sentiments;
 
     public LocalDateTime getDate() {
         return date;
@@ -44,5 +46,13 @@ public class JournalEntry {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public Sentiments getSentiments() {
+        return sentiments;
+    }
+
+    public void setSentiments(Sentiments sentiments) {
+        this.sentiments = sentiments;
     }
 }

@@ -8,9 +8,6 @@ import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.test.context.ActiveProfiles;
 
@@ -25,7 +22,9 @@ import static org.mockito.Mockito.when;
 public class UserDetailsServiceImplTest {
 
 /*    Not using @SpringBootTest to speed up the process
-      but then userDetailsService will become null, so use InjectMocks
+      but then userDetailsService will become null, so use InjectMocks as it will inject all mocks
+      @Mocks is used for that components that are used in UserDetailsServiceImpl in this case.
+      @BeforeEach is used as when @Autowired is not used then userRepository will become null and after using @BeforeEach userRepository will be initialised and gets injected using @InjectMocks
 */
 
 //    @Autowired
